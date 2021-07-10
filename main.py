@@ -1,6 +1,8 @@
 import csv
+import glob
 import pandas as pd
 from datetime import datetime
+import openpyxl
 import pytz
 
 DEFAULT_CURRENCY = 'USD'
@@ -15,9 +17,16 @@ DEFAULT_FUEL = 'Diesel'
 
 
 def merge():
-    print()
+
+    merged_data = pd.DataFrame()
+    for f in glob.glob("/Users/yingfeng/PycharmProjects/PFJ>KT/merge/*.xlsx"):
+        merged_data = pd.read_excel(f)
+        merged_data = merged_data.append(merged_data, ignore_index=True)
+    print(merged_data.to_string())
+    merged_data.to_csv("new_combined_file.csv")
     # merge all excel under one directory, output as "input.csv"
     # for use when cannot export as quarters
+    # TODO merge excel
 
 
 def import_csv():
@@ -62,12 +71,10 @@ def fuel_tax():
     # remove none Truck Diesel data, reset index
     print(data_diesel.to_string())
     # print corrected data
-
     data_export = pd.DataFrame(
         columns=['Date', 'Time(UTC)', 'Jurisdiction', 'Driver', 'Vehicle', 'Fuel Type', 'Gallons/Liters', 'Volume',
                  'USD/CAD', 'Total Cost', 'Vendor Name', 'Location', 'Miles/Kilometers', 'Odometer', 'Reference #',
                  'Notes'])
-
     data_diesel_date = data_diesel["Trx Date"]
     data_diesel_store = data_diesel["Store Number"]
     data_diesel_state = data_diesel["Store State"]
@@ -112,7 +119,13 @@ def fuel_tax():
     print(data_diesel_vehicle.to_string())
     data_export['Vehicle'] = data_diesel_vehicle
     data_export['Volume'] = data_diesel_volume
-    # TODO: remove $ sign
+    # TODO: fix error
+    for index, value in data_diesel_invoice_amount.items():
+        try:
+            value = str(value).replace('$', '')
+        except:
+            None
+        data_diesel_invoice_amount[index] = value
     data_export['Total Cost'] = data_diesel_invoice_amount
     for index, value in data_diesel_store.items():
         value = "PFJ #" + str(value)
@@ -126,5 +139,6 @@ def fuel_tax():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    merge()
     print()
     fuel_tax()
