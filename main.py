@@ -6,17 +6,12 @@ import pytz
 
 DEFAULT_CURRENCY = 'USD'
 DEFAULT_UNIT = 'Gallons'
-DEFUALT_FUEL = 'Diesel'
+DEFAULT_FUEL = 'Diesel'
 
 # input format (PFJ): Card #,Card Description,Trx Date,Transaction #,Store Location,Product,Driver ID,Odometer,
 # Trailer,Trip,Vehicle ID,Quantity,Fuel,Merchandise,Detail Total,Invoice Amt
 # output format (Keep Truckin): Date', ',Time (UTC)', ',Jurisdiction', ',Driver,Vehicle', ',Fuel Type', ',Gallons/Liters', ',Volume', ',
 # USD/CAD', ',Total Cost', ',Vendor Name', ', Location,Miles/Kilometers,Odometer,Reference #,Notes
-
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 
 def import_csv():
@@ -31,12 +26,10 @@ def import_csv():
     writer.writerows(data)'''
 
 
-
-
 def split_date_time(date):
     # 6/30/2021 9:44 AM
     # date =
-    date_time = datetime.strptime(date, '%m/%d/%Y %I:%M %p')
+    date_time = datetime.strptime(date, '%m/%d/%Y %H:%M %p')
     # mm/dd/yyyy
     date = date_time.strftime('%m/%d/%Y')
 
@@ -97,5 +90,3 @@ if __name__ == '__main__':
 
 
     #a = df1.join(numbers)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
