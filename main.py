@@ -11,13 +11,12 @@ DEFAULT_FUEL = 'Diesel'
 
 
 # input format (PFJ): Card #,Card Description,Trx Date,Transaction #,Store Location,Product,Driver ID,Odometer,
-# Trailer,Trip,Vehicle ID,Quantity,Fuel,Merchandise,Detail Total,Invoice Amt
-# output format (Keep Truckin): Date', ',Time (UTC)', ',Jurisdiction', ',Driver,Vehicle', ',Fuel Type', ',Gallons/Liters', ',Volume', ',
-# USD/CAD', ',Total Cost', ',Vendor Name', ', Location,Miles/Kilometers,Odometer,Reference #,Notes
+# Trailer,Trip,Vehicle ID,Quantity,Fuel,Merchandise,Detail Total,Invoice Amt output format (Keep Truckin): Date', ',
+# Time (UTC)', ',Jurisdiction', ',Driver,Vehicle', ',Fuel Type', ',Gallons/Liters', ',Volume', ', USD/CAD', ',
+# Total Cost', ',Vendor Name', ', Location,Miles/Kilometers,Odometer,Reference #,Notes
 
 
 def merge():
-
     merged_data = pd.DataFrame()
     for f in glob.glob("/Users/yingfeng/PycharmProjects/PFJ>KT/merge/*.xlsx"):
         merged_data = pd.read_excel(f)
@@ -98,7 +97,6 @@ def fuel_tax():
         data_diesel_converted_time_length = len(data_diesel_converted_time)
         data_diesel_converted_time.loc[data_diesel_converted_time_length] = temp_d_t
 
-    # TODO
     print(data_diesel_converted_time.to_string())
     # data_export = pd.concat([data_diesel_converted_time, data_diesel_state, data_diesel_vehicle, data_diesel_vehicle])
 
@@ -135,7 +133,9 @@ def fuel_tax():
     data_export['Vendor Name'] = data_diesel_store
 
     print(data_export.to_string())
+    # TODO: export vehicle, store number as integer
     return data_export.to_csv('output.csv', sep=',', index=False)
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
