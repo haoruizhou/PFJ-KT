@@ -75,10 +75,10 @@ def fuel_tax():
                  'USD/CAD', 'Total Cost', 'Vendor Name', 'Location', 'Miles/Kilometers', 'Odometer', 'Reference #',
                  'Notes'])
     data_diesel_date = data_diesel["Trx Date"]
-    data_diesel_store = data_diesel["Store Number"]
+    data_diesel_store = data_diesel["Store Number"].astype(int)
     data_diesel_state = data_diesel["Store State"]
     data_diesel_volume = data_diesel["Quantity"]
-    data_diesel_vehicle = data_diesel["Vehicle"]
+    data_diesel_vehicle = data_diesel["Vehicle"].astype(int)
     data_diesel_invoice_amount = data_diesel["Invoice Amount"]
 
     # Fuel Type*, Gallons/Liters*, USD/CAD* fill
@@ -125,6 +125,10 @@ def fuel_tax():
             None
         data_diesel_invoice_amount[index] = value
     data_export['Total Cost'] = data_diesel_invoice_amount
+
+    # data_diesel_store = data_diesel_store.astype(int)
+    # .astype returns an array
+
     for index, value in data_diesel_store.items():
         value = "PFJ #" + str(value)
         data_diesel_store[index] = value
