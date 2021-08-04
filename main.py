@@ -141,8 +141,19 @@ def fuel_tax():
     return data_export.to_csv('output.csv', sep=',', index=False)
 
 
+def replace_first_line():
+    with open("output.csv") as f:
+        lines = f.readlines()
+
+    lines[0] = "Date*,Time (UTC)*,Jurisdiction*,Driver,Vehicle*,Fuel Type*,Gallons/Liters*,Volume*,USD/CAD*,Total Cost*,Vendor Name*,Location,Miles/Kilometers,Odometer,Reference #,Notes\n"
+
+    with open("output.csv", "w") as f:
+        f.writelines(lines)
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     merge()
     print()
     fuel_tax()
+    replace_first_line()
