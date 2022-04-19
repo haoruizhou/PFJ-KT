@@ -9,6 +9,7 @@ DEFAULT_CURRENCY = 'USD'
 DEFAULT_UNIT = 'Gallons'
 DEFAULT_FUEL = 'Diesel'
 
+# Change first line: Card #,Card Description,Trx Date,Transaction #,Store Number,Store City,Store State,Country,Product,Driver,Odometer,Trailer,Trip,Vehicle,Quantity,Fuel,Merchandise,Detail Total,Invoice Amount
 
 # input format (PFJ): Card #,Card Description,Trx Date,Transaction #,Store Location,Product,Driver ID,Odometer,
 # Trailer,Trip,Vehicle ID,Quantity,Fuel,Merchandise,Detail Total,Invoice Amt output format (Keep Truckin): Date', ',
